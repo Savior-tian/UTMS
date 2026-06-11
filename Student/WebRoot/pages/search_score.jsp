@@ -53,6 +53,9 @@
 					</select>
 					<input id="value" type="text" style="width: 200px; height: 20px;" />
 					<input id="search_score" type="button" value="  查询  " />
+					<c:if test="${sessionScope.log_operator.role.id != 3}">
+						<a href="score_stats.jsp" style="margin-left:16px;color:#0f70b7;font-weight:bold;">成绩统计分析</a>
+					</c:if>
 				</div>
 			</div>
 		</center>

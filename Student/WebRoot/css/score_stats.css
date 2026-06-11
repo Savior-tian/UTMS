@@ -1,0 +1,92 @@
+@charset "utf-8";
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body {
+	font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+	background: linear-gradient(180deg, #f6f9fd 0%, #eef4fa 100%);
+	padding: 24px;
+	color: #213548;
+}
+.page {
+	max-width: 960px;
+	margin: 0 auto;
+}
+.head {
+	background: linear-gradient(120deg, #19588b 0%, #1f7fa9 100%);
+	color: #fff;
+	padding: 20px 24px;
+	border-radius: 14px;
+	box-shadow: 0 10px 24px rgba(27, 78, 122, 0.2);
+}
+.head h2 {
+	font-size: 26px;
+	margin-bottom: 6px;
+}
+.head p {
+	font-size: 14px;
+	opacity: 0.92;
+}
+.cards {
+	display: flex;
+	gap: 14px;
+	margin-top: 16px;
+	flex-wrap: wrap;
+}
+.card {
+	flex: 1;
+	min-width: 200px;
+	background: #fff;
+	border: 1px solid #d8e6f2;
+	border-radius: 12px;
+	padding: 16px;
+	box-shadow: 0 8px 20px rgba(39, 83, 120, 0.08);
+}
+.label {
+	font-size: 14px;
+	color: #5a7084;
+	margin-bottom: 8px;
+}
+.value {
+	font-size: 28px;
+	font-weight: 700;
+	color: #1b5f93;
+}
+.chart-box,
+.table-box {
+	margin-top: 18px;
+	background: #fff;
+	border: 1px solid #d8e6f2;
+	border-radius: 12px;
+	padding: 14px 16px 16px;
+	box-shadow: 0 8px 20px rgba(39, 83, 120, 0.08);
+}
+.chart-box h3,
+.table-box h3 {
+	font-size: 18px;
+	margin-bottom: 10px;
+	color: #244762;
+}
+#scoreChart {
+	width: 100%;
+	max-width: 900px;
+	border: 1px dashed #c8d8e7;
+	border-radius: 8px;
+	background: #fbfdff;
+}
+#subjectTable {
+	width: 100%;
+	border-collapse: collapse;
+}
+#subjectTable th {
+	background: #e9f2fb;
+	color: #274965;
+	font-size: 14px;
+}
+#subjectTable td,
+#subjectTable th {
+	text-align: center;
+	height: 36px;
+}

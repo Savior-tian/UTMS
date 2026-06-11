@@ -231,6 +231,14 @@
 		<url-pattern>/ReportScoreServlet</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>ScoreStatsServlet</servlet-name>
+		<servlet-class>score.servlet.ScoreStatsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ScoreStatsServlet</servlet-name>
+		<url-pattern>/ScoreStatsServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>AddStudentServlet</servlet-name>
 		<servlet-class>student.servlet.AddStudentServlet</servlet-class>
 	</servlet>
