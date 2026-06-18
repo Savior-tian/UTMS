@@ -63,8 +63,6 @@ UTMS（University Teaching Management System）是一个面向高校教学管理
 
 3. 工程文档补齐
 - 新增 WBS.md：任务拆分、四人分工、计划/实际耗时
-- 新增 实验步骤.md：超详细实验操作流程
-- 新增 建模图与任务对照.md：任务2~6图示与任务总对照
 - 完善本 README：部署、运行、验收说明
 
 ## 5. 环境准备
@@ -103,4 +101,4 @@ UTMS（University Teaching Management System）是一个面向高校教学管理
 - 苟敏
 - 侯亚琴
 
-详见 WBS.md 与 实验步骤.md。
+详见 WBS.md。
