@@ -1,0 +1,157 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+
+title UTMS MVC 设计模式类图（任务6）
+
+package "V 视图层 (JSP/CSS/JS)" as V {
+    class "login.jsp" as LoginJsp
+    class "pages/index.jsp" as IndexJsp
+    class "pages/search_*.jsp" as SearchJsp
+    class "pages/add_*.jsp" as AddJsp
+    class "pages/update_*.jsp" as UpdateJsp
+    class "pages/score_stats.jsp" as StatsJsp
+    class "css/*.css" as Css
+    class "js/*.js" as Js
+}
+
+package "C 控制层 (Servlet/Filter)" as C {
+    class LoginServlet {
+        + doPost(req, resp)
+        + doGet(req, resp)
+    }
+    class SearchScoreServlet {
+        + doPost(req, resp)
+    }
+    class ScoreStatsServlet {
+        + doPost(req, resp)
+    }
+    class AddStudentServlet {
+        + doPost(req, resp)
+    }
+    class UpdateStudentServlet {
+        + doPost(req, resp)
+    }
+    class SearchStudentServlet {
+        + doPost(req, resp)
+    }
+    class LoginFilter {
+        + doFilter(req, resp, chain)
+    }
+    class EnCodeFilter {
+        + doFilter(req, resp, chain)
+    }
+}
+
+package "M 模型层 (Entity + DAO + Impl)" as M {
+    package "实体类 (JavaBean)" as Entity {
+        class Student
+        class Teacher
+        class Classes
+        class Major
+        class Subject
+        class Score
+        class Operator
+        class Role
+        class Privilege
+        class Cla2Sub
+    }
+
+    package "DAO 接口" as Dao {
+        interface IStudent
+        interface ITeacher
+        interface IClasses
+        interface IMajor
+        interface ISubject
+        interface IScore
+        interface IOperator
+        interface ILogin
+        interface ICla2Sub
+        interface IPrivilege
+        interface IRole
+    }
+
+    package "DAO 实现" as Impl {
+        class StudentImpl
+        class TeacherImpl
+        class ClassesImpl
+        class MajorImpl
+        class SubjectImpl
+        class ScoreImpl
+        class OperatorImpl
+        class LoginImpl
+        class Cla2SubImpl
+        class PrivilegeImpl1
+        class RoleImpl
+    }
+
+    package "工具类" as Util {
+        class DB {
+            + {static} getConn() : Connection
+            + {static} close(conn, pst, rs)
+        }
+    }
+}
+
+package "数据库" as DBLayer {
+    class "MySQL" as MySQL
+}
+
+' 视图 -> 控制器
+LoginJsp --> LoginServlet : 提交
+SearchJsp --> SearchScoreServlet : AJAX
+StatsJsp --> ScoreStatsServlet : AJAX
+AddJsp --> AddStudentServlet : 提交
+UpdateJsp --> UpdateStudentServlet : 提交
+SearchJsp --> SearchStudentServlet : AJAX
+
+' 控制器 -> 模型
+LoginServlet --> LoginImpl
+SearchScoreServlet --> ScoreImpl
+ScoreStatsServlet --> ScoreImpl
+ScoreStatsServlet --> StudentImpl
+ScoreStatsServlet --> TeacherImpl
+AddStudentServlet --> StudentImpl
+AddStudentServlet --> OperatorImpl
+UpdateStudentServlet --> StudentImpl
+UpdateStudentServlet --> OperatorImpl
+SearchStudentServlet --> StudentImpl
+
+' 模型内部
+StudentImpl ..|> IStudent
+TeacherImpl ..|> ITeacher
+ClassesImpl ..|> IClasses
+MajorImpl ..|> IMajor
+SubjectImpl ..|> ISubject
+ScoreImpl ..|> IScore
+OperatorImpl ..|> IOperator
+LoginImpl ..|> ILogin
+Cla2SubImpl ..|> ICla2Sub
+PrivilegeImpl1 ..|> IPrivilege
+RoleImpl ..|> IRole
+
+Impl --> DB : 获取连接
+DB --> MySQL : JDBC
+
+' 过滤器
+LoginFilter ..> C : 拦截 /pages/*
+EnCodeFilter ..> C : 拦截 /*
+
+note right of C
+    控制层职责：
+    接收请求、调用模型、
+    选择视图/返回 JSON
+end note
+
+note right of M
+    模型层职责：
+    封装业务数据与持久化逻辑
+end note
+
+note bottom of V
+    视图层职责：
+    展示数据、收集用户输入、
+    通过 AJAX 与控制器交互
+end note
+
+@enduml

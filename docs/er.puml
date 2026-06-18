@@ -1,0 +1,118 @@
+@startuml
+skinparam linetype ortho
+skinparam rectangleFontSize 12
+
+title UTMS 数据库 E-R 图（任务5）
+
+entity "major\n专业" as Major {
+    * maj_id : INT <<PK>>
+    --
+    maj_name : VARCHAR
+    maj_prin : VARCHAR
+    maj_link : VARCHAR
+    maj_phone : VARCHAR
+}
+
+entity "classes\n班级" as Classes {
+    * cla_id : INT <<PK>>
+    --
+    cla_name : VARCHAR
+    * maj_id : INT <<FK>>
+    cla_tec : VARCHAR
+}
+
+entity "student\n学生" as Student {
+    * stu_id : INT <<PK>>
+    --
+    stu_no : VARCHAR
+    stu_name : VARCHAR
+    stu_sex : VARCHAR
+    stu_birth : DATE
+    stu_pic : VARCHAR
+    * cla_id : INT <<FK>>
+    * ope_id : INT <<FK>>
+}
+
+entity "teacher\n教师" as Teacher {
+    * tec_id : INT <<PK>>
+    --
+    tec_name : VARCHAR
+    tec_title : VARCHAR
+    * ope_id : INT <<FK>>
+}
+
+entity "operator\n操作员" as Operator {
+    * ope_id : INT <<PK>>
+    --
+    ope_name : VARCHAR
+    ope_pwd : VARCHAR
+    * rol_id : INT <<FK>>
+}
+
+entity "role\n角色" as Role {
+    * rol_id : INT <<PK>>
+    --
+    rol_name : VARCHAR
+}
+
+entity "privilege\n权限" as Privilege {
+    * pri_id : INT <<PK>>
+    --
+    pri_name : VARCHAR
+    pri_url : VARCHAR
+    * rol_id : INT <<FK>>
+}
+
+entity "subject\n课程" as Subject {
+    * sub_id : INT <<PK>>
+    --
+    sub_name : VARCHAR
+    sub_period : INT
+    sub_credit : DOUBLE
+}
+
+entity "score\n成绩" as Score {
+    * sco_id : INT <<PK>>
+    --
+    * stu_id : INT <<FK>>
+    * sub_id : INT <<FK>>
+    sco_usual : DOUBLE
+    sco_exam : DOUBLE
+    sco_count : DOUBLE
+}
+
+entity "cla2sub\n班级课程安排" as Cla2Sub {
+    * cla2sub_id : INT <<PK>>
+    --
+    * cla_id : INT <<FK>>
+    * sub_id : INT <<FK>>
+    * tec_id : INT <<FK>>
+}
+
+entity "picture\n头像" as Picture {
+    * pic_id : INT <<PK>>
+    --
+    pic_name : VARCHAR
+    pic_url : VARCHAR
+}
+
+' 关系
+Major ||--o{ Classes : 包含
+Classes ||--o{ Student : 拥有
+Operator ||--o| Student : 对应
+Operator ||--o| Teacher : 对应
+Role ||--o{ Operator : 分配
+Role ||--o{ Privilege : 拥有
+Student ||--o{ Score : 获得
+Subject ||--o{ Score : 被考
+Classes ||--o{ Cla2Sub : 安排
+Subject ||--o{ Cla2Sub : 被排
+Teacher ||--o{ Cla2Sub : 任课
+
+note right of Score
+    联合主键替代方案：
+    实际表使用 sco_id 自增主键，
+    但语义上 (stu_id, sub_id) 唯一
+end note
+
+@enduml

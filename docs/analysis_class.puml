@@ -1,0 +1,105 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam classFontSize 14
+
+title UTMS 面向对象分析类图（任务3）
+
+class Operator {
+    - id : int
+    - name : String
+    - pwd : String
+    + login() : boolean
+    + logout() : void
+    + checkPrivilege() : boolean
+}
+
+class Role {
+    - id : int
+    - name : String
+    + getPrivileges() : List<Privilege>
+}
+
+class Privilege {
+    - id : int
+    - name : String
+    - url : String
+}
+
+class Student {
+    - id : int
+    - no : String
+    - name : String
+    - sex : String
+    - birth : Date
+    - pic : String
+    + queryScore() : List<Score>
+    + queryClassmates() : List<Student>
+    + updateInfo() : boolean
+}
+
+class Teacher {
+    - id : int
+    - name : String
+    - title : String
+    + queryStudents() : List<Student>
+    + querySchedule() : List<Cla2Sub>
+    + inputScore() : boolean
+}
+
+class Major {
+    - id : int
+    - name : String
+    - principal : String
+    - link : String
+    - phone : String
+}
+
+class Classes {
+    - id : int
+    - name : String
+    - headTeacher : String
+    + queryStudents() : List<Student>
+    + querySubjects() : List<Subject>
+}
+
+class Subject {
+    - id : int
+    - name : String
+    - period : int
+    - credit : double
+}
+
+class Score {
+    - id : int
+    - usualScore : double
+    - examScore : double
+    - totalScore : double
+    + calculateTotal() : double
+}
+
+class Cla2Sub {
+    - id : int
+    + queryByClass() : List<Cla2Sub>
+    + queryByTeacher() : List<Cla2Sub>
+}
+
+' 关联关系
+Operator "1" --> "1" Role : 拥有 >
+Role "1" --> "*" Privilege : 包含 >
+Student "1" --> "1" Operator : 对应 >
+Teacher "1" --> "1" Operator : 对应 >
+Student "*" --> "1" Classes : 属于 >
+Classes "*" --> "1" Major : 属于 >
+Score "*" --> "1" Student : 属于 >
+Score "*" --> "1" Subject : 对应 >
+Cla2Sub "*" --> "1" Classes : 安排给 >
+Cla2Sub "*" --> "1" Subject : 教授 >
+Cla2Sub "*" --> "1" Teacher : 由...任课 >
+
+note right of Score
+    业务规则：
+    totalScore = usualScore + examScore
+    或按学校规则加权
+end note
+
+@enduml
