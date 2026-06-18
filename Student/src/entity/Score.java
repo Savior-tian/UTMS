@@ -14,9 +14,9 @@ public class Score implements Serializable {
 	private Classes classes;
 
 	public Score() {
-		this.daily = new Double(0);
-		this.exam = new Double(0);
-		this.count = new Double(0);
+		this.daily = 0.0;
+		this.exam = 0.0;
+		this.count = 0.0;
 	}
 
 	public Integer getId() {

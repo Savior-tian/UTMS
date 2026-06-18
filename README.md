@@ -61,15 +61,7 @@ UTMS（University Teaching Management System）是一个面向高校教学管理
 - 新增 `score_stats.jsp` 统计页面
 - 支持教师/管理员查看：平均分、及格/不及格人数、及格率、分段分布图、分科目统计表
 
-3. UML 建模材料（任务2~6）
-- 用例图：`docs/usecase.png`
-- 面向对象分析类图：`docs/analysis_class.png`
-- 学生查询成绩顺序图：`docs/sequence.png`
-- 数据库 E-R 图：`docs/er.png`
-- MVC 设计类图：`docs/mvc_class.png`
-- dao 包分析与类图关系说明：`docs/task6_analysis.md`
-
-4. 工程文档补齐
+3. 工程文档补齐
 - 新增 WBS.md：任务拆分、四人分工、计划/实际耗时
 - 完善本 README：部署、运行、验收说明
 
