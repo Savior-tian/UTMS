@@ -22,7 +22,7 @@
 <body>
 	<center>
 		<form
-			action="/Student/UpateStudentServlet?stu_id=${sessionScope.student.id}"
+			action="/Student/UpdateStudentServlet?stu_id=${sessionScope.student.id}"
 			enctype="multipart/form-data" method="post">
 			<div class="window" align="left">
 				<div class="tit">修改个人信息</div>

@@ -268,7 +268,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>UpdateStudentServlet</servlet-name>
-		<url-pattern>/UpateStudentServlet</url-pattern>
+		<url-pattern>/UpdateStudentServlet</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>SearchStudentServlet</servlet-name>
