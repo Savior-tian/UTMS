@@ -14,9 +14,21 @@
 <script src="../js/jquery-1.8.3.min.js">
 	
 </script>
-<script src="../js/search.js">
+	<script src="../js/search.js">
 	
 </script>
+	<script type="text/javascript">
+		function previewPic(fileInput) {
+			var file = fileInput.files[0];
+			if (file) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					document.getElementById('picPreview').src = e.target.result;
+				};
+				reader.readAsDataURL(file);
+			}
+		}
+	</script>
 </head>
 
 <body>
@@ -107,8 +119,8 @@
 						</c:choose>
 					</div>
 					<div align="left">
-						<a>头像：</a> <input style="margin-top: 20px;" type="file" name="pic" />
-						<br /> <br /> <img src="${sessionScope.student.pic}" width="150"
+						<a>头像：</a> <input style="margin-top: 20px;" type="file" name="pic" onchange="previewPic(this)" />
+						<br /> <br /> <img id="picPreview" src="${sessionScope.student.pic}" width="150"
 							height="150" style="margin-left: 100px;" />
 					</div>
 					<br />

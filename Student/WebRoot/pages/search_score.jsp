@@ -17,7 +17,7 @@
 	<body>
 		<center>
 			<div class="window">
-				<div class="searchbox tit">
+				<div class="searchbox tit" style="width: 820px; height: auto; overflow: visible;">
 					查找成绩：
 					<select id="search_type">
 						<c:choose>

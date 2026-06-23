@@ -1,4 +1,4 @@
-﻿package subject.servlet;
+package subject.servlet;
 
 import impl.StudentImpl;
 import impl.SubjectImpl;

@@ -32,6 +32,11 @@ public class LoginImpl implements ILogin {
 		log_operator = new Operator();
 		try {
 			conn = DB.getConn();
+			if (conn == null) {
+				checkResult = "数据库连接失败，请检查数据库是否启动及配置是否正确！";
+				session.setAttribute("isLogin", "false");
+				return checkResult;
+			}
 			pst = conn
 					.prepareStatement("SELECT * FROM operator WHERE ope_name = ?");
 			pst.setString(1, operator.getName());
@@ -40,7 +45,13 @@ public class LoginImpl implements ILogin {
 				checkResult = "账户不存在，请重新输入！";
 				session.setAttribute("isLogin", "false");
 			} else {
-				if (!operator.getPwd().equals(rs.getString(3))) {
+				// 先把 operator 表的数据读到本地变量，避免后续查询时结果集被关闭
+				int ope_id = rs.getInt(1);
+				String ope_name = rs.getString(2);
+				String ope_pwd = rs.getString(3);
+				String rol_id = rs.getString(4);
+
+				if (!operator.getPwd().equals(ope_pwd)) {
 					checkResult = "您输入的密码不正确，请重新输入！";
 					session.setAttribute("isLogin", "false");
 				} else {
@@ -48,11 +59,10 @@ public class LoginImpl implements ILogin {
 					session.setAttribute("isLogin", "true");
 
 					// 获得该用户的完整信息
-					log_operator.setId(rs.getInt(1));
-					log_operator.setName(rs.getString(2));
-					log_operator.setPwd(rs.getString(3));
-					log_operator.setRole(roleImpl.query("rol_id",
-							rs.getString(4)).get(0));
+					log_operator.setId(ope_id);
+					log_operator.setName(ope_name);
+					log_operator.setPwd(ope_pwd);
+					log_operator.setRole(roleImpl.query("rol_id", rol_id).get(0));
 					session.setAttribute("log_operator", log_operator);
 
 					// 根据用户，获取对应的角色对应的权限
@@ -83,6 +93,8 @@ public class LoginImpl implements ILogin {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			checkResult = "登录失败：" + (e.getMessage() == null ? e.toString() : e.getMessage());
+			session.setAttribute("isLogin", "false");
 		} finally {
 			DB.close(conn, pst, rs);
 		}

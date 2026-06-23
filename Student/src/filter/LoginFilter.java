@@ -22,8 +22,11 @@ public class LoginFilter implements Filter
 		// 如果还没有登录的话跳回登录页面
 		String isLogin = (String) ((HttpServletRequest) request).getSession().getAttribute("isLogin");
 		
-		if (isLogin == null || isLogin.equals(""))
-			((HttpServletResponse) response).sendRedirect("/Student/login.jsp");
+		if (isLogin == null || !"true".equals(isLogin))
+		{
+			HttpServletRequest req = (HttpServletRequest) request;
+			((HttpServletResponse) response).sendRedirect(req.getContextPath() + "/login.jsp");
+		}
 		else
 			chain.doFilter(request, response);
 	}

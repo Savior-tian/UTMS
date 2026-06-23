@@ -38,9 +38,9 @@
 						<option value="0">
 							请选择班级
 						</option>
-						<c:forEach items="${sessionScope.list_classes}" var="class">
-							<option value="${class.id}">
-								${class.name}
+						<c:forEach items="${sessionScope.list_classes}" var="cla">
+							<option value="${cla.id}">
+								${cla.name}
 							</option>
 						</c:forEach>
 					</select>

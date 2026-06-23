@@ -15,6 +15,18 @@
 </script>
 		<script src="../js/search.js">
 </script>
+		<script type="text/javascript">
+			function previewPic(fileInput) {
+				var file = fileInput.files[0];
+				if (file) {
+					var reader = new FileReader();
+					reader.onload = function(e) {
+						document.getElementById('picPreview').src = e.target.result;
+					};
+					reader.readAsDataURL(file);
+				}
+			}
+		</script>
 	</head>
 
 	<body>
@@ -73,10 +85,10 @@
 						</div>
 						<div align="left">
 							<a>头像：</a>
-							<input style="margin-top: 20px;" type="file" name="pic" />
+							<input style="margin-top: 20px;" type="file" name="pic" onchange="previewPic(this)" />
 							<br />
 							<br />
-							<img src="../images/person.png" width="150" height="150"
+							<img id="picPreview" src="../images/person.png" width="150" height="150"
 								style="margin-left: 100px;" />
 						</div>
 						<br />

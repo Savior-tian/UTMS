@@ -9,11 +9,11 @@ public class DB {
 	// 获取数据库连接
 	public static Connection getConn() {
 		Connection conn = null;
-		String url = "jdbc:mysql://localhost:3306/student?characterEncoding=utf8";
+		String url = "jdbc:mysql://localhost:3306/student?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true";
 		String name = "root";
-		String pwd = "";
+		String pwd = "root";  // 如果 root 有密码，请在这里填写
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(url, name, pwd);
 		} catch (Exception e) {
 			e.printStackTrace();
